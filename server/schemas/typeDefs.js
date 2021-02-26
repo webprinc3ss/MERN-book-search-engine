@@ -9,14 +9,7 @@ type Query {
     user(username: String!): User
   }
 
-type mutation {
-    login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    saveBook(bookData: BookInput!): User
-    removeBook: (bookId: Int!): User
-}  
-
-type User {
+  type User {
     _id: ID
     username: String
     email: String
@@ -24,7 +17,7 @@ type User {
     savedBooks: [Book]
   }
 
-type Book {
+  type Book {
     bookId: String
     authors: [String]
     description: String
@@ -32,6 +25,22 @@ type Book {
     image: String
     link: String
   }
+
+  input BookInput {
+    bookId: ID
+    authors: [String]
+    description: String
+    image: String
+    link: String
+    title: String
+}
+
+type mutation {
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    saveBook(bookData: BookInput!): User
+    removeBook: (bookId: Int!): User
+}  
 
   type Auth {
     token: ID!
@@ -41,5 +50,3 @@ type Book {
 
 // export the typeDefs
 module.exports = typeDefs;
-
-// saveBook([author]: String, description: String, title: String, bookId: Int, image: string, link: String): User
