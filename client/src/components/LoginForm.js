@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_USER } from '../utils/queries';
+import { LOGIN_USER } from '../utils/mutations';
 
-import { loginUser } from '../utils/API';
+// import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -32,21 +32,22 @@ const LoginForm = () => {
     try {
       // const response = await loginUser(userFormData);
 
-      const { data } = await login({
-        variables: { ...userFormData }
-      });
+      const { data } = await login({ variables: { ...userFormData } });
 
       if (error) {
         throw new Error('something went wrong!');
       }
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
+      // const { token, user } = await response.json();
+      // console.log(user);
+      Auth.login(data.login.token);
+
+    } catch (e) {
+      console.error(e);
       setShowAlert(true);
     }
+    //   setShowAlert(true);
+    // }
 
     setUserFormData({
       username: '',
